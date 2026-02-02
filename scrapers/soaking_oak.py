@@ -34,7 +34,7 @@ def scrape():
         print(f"[{SOURCE_NAME}] Fetch failed: {e}")
         return []
 
-    soup = BeautifulSoup(resp.text, 'lxml')
+    soup = BeautifulSoup(resp.text, 'html.parser')
     releases = []
 
     content = soup.select_one('article, .entry-content, .post-content, .blog-content, main')

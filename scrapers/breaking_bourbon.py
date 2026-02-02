@@ -143,7 +143,7 @@ def _parse_html():
         print(f"[{SOURCE_NAME}] Fetch failed: {e}")
         return []
 
-    soup = BeautifulSoup(resp.text, 'lxml')
+    soup = BeautifulSoup(resp.text, 'html.parser')
     releases = []
 
     # Strategy 1: Card-based layouts

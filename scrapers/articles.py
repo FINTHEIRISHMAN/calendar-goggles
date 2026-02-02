@@ -66,7 +66,7 @@ def _scrape_article(source):
     resp = requests.get(source['url'], headers=HEADERS, timeout=15)
     resp.raise_for_status()
 
-    soup = BeautifulSoup(resp.text, 'lxml')
+    soup = BeautifulSoup(resp.text, 'html.parser')
     releases = []
 
     content = soup.select_one('article, .article-content, .blog-post, .entry-content, .post-content, .rte, main')

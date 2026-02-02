@@ -1,1 +1,1 @@
-web: python3 seed.py && python3 server.py
+web: mkdir -p data && python seed.py && python server.py

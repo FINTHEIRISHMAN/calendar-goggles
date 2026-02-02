@@ -35,7 +35,7 @@ def scrape():
         print(f"[{SOURCE_NAME}] Fetch failed: {e}")
         return []
 
-    soup = BeautifulSoup(resp.text, 'lxml')
+    soup = BeautifulSoup(resp.text, 'html.parser')
     releases = []
 
     # Find the main WordPress content area
