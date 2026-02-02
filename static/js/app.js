@@ -59,11 +59,15 @@ async function init() {
 
 // ─── Stats ───────────────────────────────────────────────────
 function renderStats(s) {
+  const total = parseInt(s.totalReleases, 10) || 0;
+  const sources = parseInt(s.totalSources, 10) || 0;
+  const proof = parseFloat(s.avgProof) ? parseFloat(s.avgProof).toFixed(1) : '—';
+  const price = parseFloat(s.avgPrice) ? '$' + parseFloat(s.avgPrice).toFixed(0) : '—';
   $statsBar.innerHTML = `
-    <div class="stat-item"><div class="stat-value">${s.totalReleases||0}</div><div class="stat-label">Releases</div></div>
-    <div class="stat-item"><div class="stat-value">${s.totalSources||0}</div><div class="stat-label">Sources</div></div>
-    <div class="stat-item"><div class="stat-value">${s.avgProof?s.avgProof.toFixed(1):'—'}</div><div class="stat-label">Avg Proof</div></div>
-    <div class="stat-item"><div class="stat-value">${s.avgPrice?'$'+s.avgPrice.toFixed(0):'—'}</div><div class="stat-label">Avg Price</div></div>`;
+    <div class="stat-item"><div class="stat-value">${esc(String(total))}</div><div class="stat-label">Releases</div></div>
+    <div class="stat-item"><div class="stat-value">${esc(String(sources))}</div><div class="stat-label">Sources</div></div>
+    <div class="stat-item"><div class="stat-value">${esc(proof)}</div><div class="stat-label">Avg Proof</div></div>
+    <div class="stat-item"><div class="stat-value">${esc(price)}</div><div class="stat-label">Avg Price</div></div>`;
 }
 
 function populateDistilleries(list) {
@@ -129,7 +133,7 @@ function renderCalendar() {
 }
 
 function renderCard(r) {
-  const src = (r.sources||[]).map(s => `<span class="badge badge-source">${fmtSrc(s)}</span>`).join('');
+  const src = (r.sources||[]).map(s => `<span class="badge badge-source">${esc(fmtSrc(s))}</span>`).join('');
   return `<div class="release-card" data-id="${r.id}">
     <div class="card-badges">
       <span class="badge badge-type">${fmtType(r.type)}</span>
@@ -186,7 +190,7 @@ function showModal(r) {
     </div>
     ${r.notes?`<div class="modal-notes"><strong>Notes:</strong> ${esc(r.notes)}</div>`:''}
     <div class="modal-sources"><h4>Sources (${src.length})</h4>
-      <div class="modal-source-list">${src.map(s=>`<span class="source-tag">${fmtSrc(s)}</span>`).join('')}</div>
+      <div class="modal-source-list">${src.map(s=>`<span class="source-tag">${esc(fmtSrc(s))}</span>`).join('')}</div>
     </div>`;
   $modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
